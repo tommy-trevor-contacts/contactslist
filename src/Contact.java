@@ -27,6 +27,11 @@ public class Contact {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public void removePhoneNumber(){
+
+    }
+
     public static List<String> contactToNameStrings(List<Contact> contacts) {
         List<String> names = new ArrayList<>();
         for (Contact contact : contacts) {
