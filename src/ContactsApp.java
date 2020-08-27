@@ -15,6 +15,7 @@ public class ContactsApp {
     //Pathway to the contacts text file
     static Path contactsFilePath = Paths.get("./src/" + contactsDirectory + "/" + contactsData).normalize();
     //declares contacts array list
+    List<Contact> contact;
     static List<String> contactsList = new ArrayList<>();
 //    static Contact contact;
     static Scanner scanner = new Scanner(System.in);
