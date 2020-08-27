@@ -61,14 +61,16 @@ public class ContactsApp {
         System.out.println("Please enter the contact number");
         String addNumber = scanner.next();
         System.out.println("The contact that will be added: " + addName + " | " + addNumber);
+        contactsList.add(addName);
+        contactsList.add(addNumber);
     }
 
     // Add Contact Method
-    public static void addContact(String name, String phone) throws IOException {
+    /*public static void addContact(String name, String phone) throws IOException {
         Contact contact = new Contact(name, phone);
         contactsList.add(contact.getName() + " | " + contact.getPhoneNumber());
         Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
-    }
+    }*/
 
     // Remove user input Contact Method
     public static void removeContact(){
@@ -77,12 +79,16 @@ public class ContactsApp {
         System.out.println("enter the contact's number that you don't want anymore");
         String removeNumber = scanner.next();
         System.out.println("The contact that will be deleted: " + removeName + " | " + removeNumber);
+        contactsList.remove(removeName);
+        contactsList.remove(removeNumber);
     }
 
     //remove contact method
-    public static void  removeCOntact(String name, String phone) throws IOException {
-//        contactsList.remove()
-    }
+   /* public static void  removeContact(String name, String phone) throws IOException {
+        Contact contact = new Contact(name, phone);
+        contactsList.remove(contact.getName() + " | " + contact.getPhoneNumber());
+        Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
+    }*/
 
     //This is the void method that is responsible for created the switch cases for user interactions
     public static void contactInterface() {
