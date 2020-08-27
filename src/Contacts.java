@@ -1,13 +1,13 @@
 import java.util.List;
 public class Contacts {
     protected String name;
-    protected String phonenumber;
+    protected String phoneNumber;
 //    protected List<String>
 
     // CLASS CONSTRUCTOR
-    public void Contact(String name, String phonenumber) {
+    public void Contact(String name, String phoneNumber) {
         this.name = name;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -18,12 +18,11 @@ public class Contacts {
         this.name = name;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-
 }
