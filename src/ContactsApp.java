@@ -1,5 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +17,7 @@ public class ContactsApp {
     static List<String> contactsList = new ArrayList<>();
 //    static Contact contact;
     static Scanner scanner = new Scanner(System.in);
-    Contacts = contact
+
 
 
     // ======= METHODS =======
@@ -46,7 +44,7 @@ public class ContactsApp {
 
     public static void addContact(String name, String phone) throws IOException {
 
-        contact = new contact(name, phone);
+        Contact contact = new Contact(name, phone);
         contactsList.add(contact.getName() + " | " + contact.getPhoneNumber());
 
         Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);

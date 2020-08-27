@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-public class Contacts {
+public class Contact {
     protected String name;
     protected String phoneNumber;
 //    protected List<String>
