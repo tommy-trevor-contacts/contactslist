@@ -21,15 +21,15 @@ public class ContactsApp {
     // ======= METHODS =======
     //read content of contacts & add into contacts list array
     public static void main(String[] args) throws IOException {
-        try {
-            contactsList = Files.readAllLines(contactsFilePath);
-            for (String contact : contactsList
-            ) {
-                System.out.println(contact);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            contactsList = Files.readAllLines(contactsFilePath);
+//            for (String contact : contactsList
+//            ) {
+//                System.out.println(contact);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         contactInterface();
     }
 
@@ -78,7 +78,8 @@ public class ContactsApp {
     public static void removeContact(String name) throws IOException {
         for (String contact : contactsList) {
             if (contact.toLowerCase().contains(name.toLowerCase())) { // Sterilize input and the existing contacts, store anything that contains the user's input into the list
-                contactsList.remove(contact); break;
+                contactsList.remove(contact);
+                break;
             }
         }
         Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
@@ -86,6 +87,8 @@ public class ContactsApp {
 
     //This is the void method that is responsible for created the switch cases for user interactions
     public static void contactInterface() throws IOException {
+        boolean isRunning = true;
+
         System.out.println(
                 "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
@@ -93,54 +96,65 @@ public class ContactsApp {
                         "4. Delete an existing contact.\n" +
                         "5. Exit.\n" +
                         "Enter an option (1, 2, 3, 4 or 5):");
-        int userInput = Integer.parseInt(scanner.nextLine());
-        switch (userInput) {
-            case 1: //view all contacts
-                System.out.println("\n*** ALL CONTACTS ***");
-                viewAll();
-                break;
-            case 2: //add contact
-                System.out.println("\n*** ADD A CONTACT ***");
-                System.out.print("\nName: ");
-                String contactName = scanner.nextLine(); // get the users desired name
-                System.out.print("Phone Number: ");
-                String contactPhone = scanner.nextLine(); // get the user desired phone number
-                addContact(contactName, contactPhone);
-                System.out.println("\nContact added: " + contactName + " | " + contactPhone); // let the user know that their contact was added
-                break;
-            case 3: // search for a contact
-                System.out.println("\n*** SEARCH ***");
-                boolean searchAgain = false;
-                do {
-                    System.out.print("\nName of contact: ");
-                    String nameToSearch = scanner.nextLine();
+            int userInput = Integer.parseInt(scanner.nextLine());
 
-                    List<String> contacts = searchContacts(nameToSearch);
+        while(isRunning) {
 
-                    if (!contacts.isEmpty()) { // If the list has 1+ elements, display the contacts
-                        printContacts(contacts);
-                    } else { //
-                        System.out.println("\nI'm sorry, a contact by that name does not exist.");
-                    }
+            switch (userInput) {
+                case 1: //view all contacts
+                    System.out.println("\n*** ALL CONTACTS ***");
+                    viewAll();
+                    break;
+                case 2: //add contact
+                    System.out.println("\n*** ADD A CONTACT ***");
+                    System.out.print("\nName: ");
+                    String contactName = scanner.nextLine(); // get the users desired name
+                    System.out.print("Phone Number: ");
+                    String contactPhone = scanner.nextLine(); // get the user desired phone number
+                    addContact(contactName, contactPhone);
+                    System.out.println("\nContact added: " + contactName + " | " + contactPhone); // let the user know that their contact was added
+                    break;
+                case 3: // search for a contact
+                    System.out.println("\n*** SEARCH ***");
+                    boolean searchAgain = false;
+                    do {
+                        System.out.print("\nName of contact: ");
+                        String nameToSearch = scanner.nextLine();
 
-                    System.out.print("\nWould you like to search the contacts again? [y/n]: "); // prompt the user if they would like to search again
+                        List<String> contacts = searchContacts(nameToSearch);
 
-                    String userConfirm = scanner.nextLine();
-                    if (userConfirm.toLowerCase().contains("y")) { // if user response contains 'y' re-run search
-                        searchAgain = true;
-                    } else { // else, do not re-run the loop
-                        searchAgain = false;
-                    }
-                } while (searchAgain);
-                break;
-            case 4: //remove contact
-                System.out.println("\n*** Remove Contact ***");
-                System.out.print("\nName: ");
-                String removeUser = scanner.nextLine(); // get the users desired name
-                removeContact(removeUser);
-                System.out.println("\nContact removed: " + removeUser); // let the user know that their contact was added
-                break;
+                        if (!contacts.isEmpty()) { // If the list has 1+ elements, display the contacts
+                            printContacts(contacts);
+                        } else { //
+                            System.out.println("\nI'm sorry, a contact by that name does not exist.");
+                        }
 
+                        System.out.print("\nWould you like to search the contacts again? [y/n]: "); // prompt the user if they would like to search again
+
+                        String userConfirm = scanner.nextLine();
+                        if (userConfirm.toLowerCase().contains("y")) { // if user response contains 'y' re-run search
+                            searchAgain = true;
+                        } else { // else, do not re-run the loop
+                            searchAgain = false;
+                        }
+                    } while (searchAgain);
+                    break;
+                case 4: //remove contact
+                    System.out.println("\n*** Remove Contact ***");
+                    System.out.print("\nName: ");
+                    String removeUser = scanner.nextLine(); // get the users desired name
+                    removeContact(removeUser);
+                    System.out.println("\nContact removed: " + removeUser); // let the user know that their contact was added
+                    break;
+                case 5: // exit
+                    System.out.println("\nExiting Application");
+                    isRunning = false;
+                    break;
+                default: // If the user enters a number that is out of bounds
+
+                    System.out.println("\nThat number is not in our system. Please enter a number from the menu.");
+                    break;
+            }
         }
     }
 }
