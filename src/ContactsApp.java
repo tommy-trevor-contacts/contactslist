@@ -75,8 +75,10 @@ public class ContactsApp {
     }
 
     //remove contact method
-    public static void  removeContact(String name, String phone) throws IOException {
-//        contactsList.remove()
+    public static void  removeContact(String name) throws IOException {
+        Contact contact = new Contact(name);
+        contactsList.remove(contact.getName() + " | " + contact.getPhoneNumber());
+        Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     //This is the void method that is responsible for created the switch cases for user interactions
@@ -90,11 +92,11 @@ public class ContactsApp {
                         "Enter an option (1, 2, 3, 4 or 5):");
         int userInput = Integer. parseInt(scanner.nextLine());
         switch (userInput) {
-            case 1:
+            case 1: //view all contacts
                 System.out.println("\n*** ALL CONTACTS ***");
                 viewAll();
                 break;
-            case 2:
+            case 2: //add contact
                 System.out.println("\n*** ADD A CONTACT ***");
                 System.out.print("\nName: ");
                 String contactName = scanner.nextLine(); // get the users desired name
@@ -128,6 +130,14 @@ public class ContactsApp {
                     }
                 } while (searchAgain);
                 break;
+            case 4: //remove contact
+                System.out.println("\n*** Remove Contact ***");
+                System.out.print("\nName: ");
+                String removeUser = scanner.nextLine(); // get the users desired name
+                removeContact(removeUser);
+                System.out.println("\nContact removed: " + removeUser ); // let the user know that their contact was added
+                break;
+
         }
     }
 }
