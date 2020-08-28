@@ -85,20 +85,21 @@ public class ContactsApp {
         Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    //This is the void method that is responsible for created the switch cases for user interactions
+    //This is the void method that is responsible for creating the switch cases for user interactions
     public static void contactInterface() throws IOException {
         boolean isRunning = true;
 
-        System.out.println(
-                "1. View contacts.\n" +
-                        "2. Add a new contact.\n" +
-                        "3. Search a contact by name.\n" +
-                        "4. Delete an existing contact.\n" +
-                        "5. Exit.\n" +
-                        "Enter an option (1, 2, 3, 4 or 5):");
-            int userInput = Integer.parseInt(scanner.nextLine());
 
-        while(isRunning) {
+
+        while (isRunning) {
+            System.out.println(
+                    "1. View contacts.\n" +
+                            "2. Add a new contact.\n" +
+                            "3. Search a contact by name.\n" +
+                            "4. Delete an existing contact.\n" +
+                            "5. Exit.\n" +
+                            "Enter an option (1, 2, 3, 4 or 5):");
+            int userInput = Integer.parseInt(scanner.nextLine());
 
             switch (userInput) {
                 case 1: //view all contacts
