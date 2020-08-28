@@ -3,8 +3,6 @@ import java.util.List;
 public class Contact {
     protected String name;
     protected String phoneNumber;
-//    protected List<String>
-
 
     // CLASS CONSTRUCTOR
     public Contact(String name, String phoneNumber) {
@@ -12,28 +10,12 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public Contact(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void removePhoneNumber(){
-
     }
 
     public static List<String> contactToNameStrings(List<Contact> contacts) {

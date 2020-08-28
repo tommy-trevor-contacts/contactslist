@@ -21,24 +21,17 @@ public class ContactsApp {
     // ======= METHODS =======
     //read content of contacts & add into contacts list array
     public static void main(String[] args) throws IOException {
-//        try {
-//            contactsList = Files.readAllLines(contactsFilePath);
-//            for (String contact : contactsList
-//            ) {
-//                System.out.println(contact);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         contactInterface();
     }
 
     // Print Contacts
     public static void printContacts(List<String> list) {
         System.out.println("\nName | Phone number");
-        System.out.println("---------------");
+        System.out.println("-------------------------------");
         for (String contact : list) {
-            System.out.println(contact);
+            String[] split = contact.split(" \\| ");
+            String formattedNumber = split[1].replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+            System.out.printf("%-15s %-15s \n", split[0], formattedNumber);
         }
     }
 
@@ -64,6 +57,13 @@ public class ContactsApp {
         contactsList.add(contact.getName() + " | " + contact.getPhoneNumber());
         Files.write(contactsFilePath, contactsList, StandardOpenOption.TRUNCATE_EXISTING);
     }
+
+//    // Formatting Number to (XXX) XXX-XXXX
+//    public static void formatNumber(String phone) {
+//        Contact contact = new Contact(phone);
+//        String formattedNumber = contact.getPhoneNumber().replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+//    }
+
 
     // Remove user input Contact Method
     public static void removeContact() {
@@ -112,8 +112,9 @@ public class ContactsApp {
                     String contactName = scanner.nextLine(); // get the users desired name
                     System.out.print("Phone Number: ");
                     String contactPhone = scanner.nextLine(); // get the user desired phone number
+                    String formattedNumber = contactPhone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
                     addContact(contactName, contactPhone);
-                    System.out.println("\nContact added: " + contactName + " | " + contactPhone); // let the user know that their contact was added
+                    System.out.println("\nContact added: " + contactName + " | " + formattedNumber); // let the user know that their contact was added
                     break;
                 case 3: // search for a contact
                     System.out.println("\n*** SEARCH ***");
