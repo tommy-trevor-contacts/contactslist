@@ -18,12 +18,9 @@ public class ContactsApp {
     //    static Contact contact;
     static Scanner scanner = new Scanner(System.in);
 
-
-
-
     // ======= METHODS =======
     //read content of contacts & add into contacts list array
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
             contactsList = Files.readAllLines(contactsFilePath);
             for (String contact : contactsList
@@ -35,8 +32,6 @@ public class ContactsApp {
         }
         contactInterface();
     }
-
-
 
     // Print Contacts
     public static void printContacts(List<String> list) {
@@ -53,14 +48,14 @@ public class ContactsApp {
         printContacts(contactsList);
     }
 
-    //add user input contact method
-    public static void addContact() {
-
-        System.out.println("Please Enter New Contact");
-        String addName = scanner.nextLine();
-        System.out.println("Please enter the contact number");
-        String addNumber = scanner.next();
-        System.out.println("The contact that will be added: " + addName + " | " + addNumber);
+    // Search User Method
+    public static List<String> searchContacts(String name) {
+        List<String> contactsWithName = new ArrayList<>(); // Make new ArrayList to hold search results
+        for (String contact : contactsList) {
+            if (contact.toLowerCase().contains(name.toLowerCase())) // Sterilize input and the existing contacts, store anything that contains the user's input into the list
+                contactsWithName.add(contact);
+        }
+        return contactsWithName; // Return the list
     }
 
     // Add Contact Method
@@ -80,12 +75,12 @@ public class ContactsApp {
     }
 
     //remove contact method
-    public static void  removeCOntact(String name, String phone) throws IOException {
+    public static void  removeContact(String name, String phone) throws IOException {
 //        contactsList.remove()
     }
 
     //This is the void method that is responsible for created the switch cases for user interactions
-    public static void contactInterface() {
+    public static void contactInterface() throws IOException {
         System.out.println(
                 "1. View contacts.\n" +
                 "2. Add a new contact.\n" +
@@ -96,13 +91,42 @@ public class ContactsApp {
         int userInput = Integer. parseInt(scanner.nextLine());
         switch (userInput) {
             case 1:
-                for (String contact : contactsList
-                ) {
-                    System.out.println(contact);
-                }
+                System.out.println("\n*** ALL CONTACTS ***");
+                viewAll();
                 break;
             case 2:
-                addContact();
+                System.out.println("\n*** ADD A CONTACT ***");
+                System.out.print("\nName: ");
+                String contactName = scanner.nextLine(); // get the users desired name
+                System.out.print("Phone Number: ");
+                String contactPhone = scanner.nextLine(); // get the user desired phone number
+                addContact(contactName, contactPhone);
+                System.out.println("\nContact added: " + contactName + " | " + contactPhone); // let the user know that their contact was added
+                break;
+            case 3: // search for a contact
+                System.out.println("\n*** SEARCH ***");
+                boolean searchAgain = false;
+                do {
+                    System.out.print("\nName of contact: ");
+                    String nameToSearch = scanner.nextLine();
+
+                    List<String> contacts = searchContacts(nameToSearch);
+
+                    if (!contacts.isEmpty()) { // If the list has 1+ elements, display the contacts
+                        printContacts(contacts);
+                    } else { //
+                        System.out.println("\nI'm sorry, a contact by that name does not exist.");
+                    }
+
+                    System.out.print("\nWould you like to search the contacts again? [y/n]: "); // prompt the user if they would like to search again
+
+                    String userConfirm = scanner.nextLine();
+                    if (userConfirm.toLowerCase().contains("y")) { // if user response contains 'y' re-run search
+                        searchAgain = true;
+                    } else { // else, do not re-run the loop
+                        searchAgain = false;
+                    }
+                } while (searchAgain);
                 break;
         }
     }
